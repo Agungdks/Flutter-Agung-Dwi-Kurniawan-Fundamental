@@ -1,6 +1,6 @@
 {
-    "name": "poli",
-    "short_name": "poli",
+    "name": "calculator",
+    "short_name": "calculator",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

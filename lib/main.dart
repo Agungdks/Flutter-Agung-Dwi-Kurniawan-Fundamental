@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Calculator',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Calculator'),
     );
   }
 }
@@ -48,8 +48,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+ TextEditingController controller1 = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
+  int? result = 0, num1 = 0, num2 = 0;
+  tambah() {
+    setState(() {
+      num1 = int.parse(controller1.text);
+      num2 = int.parse(controller2.text);
+      result = num1! + num2!;
+    });
+  }
 
+  kurang() {
+    setState(() {
+      num1 = int.parse(controller1.text);
+      num2 = int.parse(controller2.text);
+      result = num1! - num2!;
+    });
+  }
+
+  bagi() {
+    setState(() {
+      num1 = int.parse(controller1.text);
+      num2 = int.parse(controller2.text);
+      result = num1! ~/ num2!;
+    });
+  }
+
+  kali() {
+    setState(() {
+      num1 = int.parse(controller1.text);
+      num2 = int.parse(controller2.text);
+      result = num1! * num2!;
+    });
+  }
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -57,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+     
     });
   }
 
@@ -75,9 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
@@ -94,17 +125,65 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          children: <Widget>[  
+              Text(
+              "Result : $result",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            SizedBox(
+              height: 20,
             ),
-          ],
+            TextField(
+              controller: controller1,
+              decoration: InputDecoration(
+                  labelText: "Masukkan angka pertama",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20))),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextField(
+              controller: controller2,
+              decoration: InputDecoration(
+                  labelText: "Masukkan angka kedua",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20))),
+            ),
+            SizedBox(
+              height: 20,
+            ),    
+                ElevatedButton(
+                    onPressed: () {
+                      tambah();
+                      controller1.clear();
+                      controller2.clear();
+                    },
+                    child: Text("Tambah")),
+                ElevatedButton(
+                    onPressed: () {
+                      kurang();
+                      controller1.clear();
+                      controller2.clear();
+                    },
+                    child: Text("Kurang")),
+                ElevatedButton(
+                    onPressed: () {
+                      kali();
+                      controller1.clear();
+                      controller2.clear();
+                    },
+                    child: Text("Kali")),
+                ElevatedButton(
+                    onPressed: () {
+                      bagi();
+                      controller1.clear();
+                      controller2.clear();
+                    },
+                    child: Text("Bagi"))
+              ],
+            ),  
         ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
